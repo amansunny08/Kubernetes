@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: my-ds
+  labels:
+    color: red
+spec:
+  selector:
+    matchLabels:
+      color: red
+  template:
+    metadata:
+      labels:
+        color: red
+    spec:
+      containers:
+      - name: mycon
+        image: nginx 
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: myservice
+spec:
+  selector:
+    color: red
+  type: NodePort
+  #type: LoadBalancer
+  ports:
+     - port: 80
+       targetPort: 80
